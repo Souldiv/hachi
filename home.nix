@@ -23,6 +23,7 @@
       docker-client
       kubectl
       postgresql
+      sqlcmd
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
