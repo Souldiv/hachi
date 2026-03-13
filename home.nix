@@ -22,6 +22,7 @@
       ghostty-bin
       docker-client
       kubectl
+      postgresql
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
@@ -67,6 +68,7 @@
         "bracketed-segments"
       ];
       settings = {
+        format = "$username$hostname$localip$shlvl$singularity$directory$kubernetes$vcsh$fossil_branch$fossil_metrics$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$pijul_channel$docker_context$package$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$flutter$golang$gradle$haskell$java$julia$kotlin$lua$nim$nodejs$ocaml$odin$opa$perl$php$pulumi$purescript$python$quox$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$typst$vlang$vagrant$zig$buf$guix_shell$nix_shell$conda$meson$spack$memory_usage$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$os$container$shell$character";
         aws.disabled = true;
         gcloud.disabled = true;
         directory = {
