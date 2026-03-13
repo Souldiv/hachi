@@ -31,6 +31,12 @@
   };
 
   programs = {
+    bat = {
+      enable = true;
+      config = {
+        theme = "TwoDark";
+      };
+    };
     vscode = {
       enable = true;
       profiles.default = {
