@@ -32,6 +32,34 @@
   };
 
   programs = {
+    ssh = {
+      enable = true;
+      extraConfig = ''
+        SetEnv TERM=xterm-256color
+      '';
+      matchBlocks = {
+        "bastion" = {
+          hostname = "52.140.46.232";
+          user = "azureuser";
+          identityFile = "~/files/eqx/conductor-backpack/ssh-keys/deploy_eqx_azure";
+        };
+        "conductor" = {
+          hostname = "10.0.1.4";
+          user = "conuser";
+          identityFile = "~/files/eqx/conductor-backpack/ssh-keys/deploy_eqx_azure";
+          proxyJump = "bastion";
+        };
+        "github.com" = {
+          hostname = "github.com";
+          user = "Souldiv";
+          identityFile = "~/.ssh/id_ed25519";
+          extraOptions = {
+            UseKeychain = "yes";
+            AddKeysToAgent = "yes";
+          };
+        };
+      };
+    };
     bat = {
       enable = true;
       config = {
