@@ -74,6 +74,7 @@
           jnoortheen.nix-ide
           hashicorp.terraform
           yzhang.markdown-all-in-one
+          rust-lang.rust-analyzer
         ];
         userSettings = {
           "window.titleBarStyle" = "native";

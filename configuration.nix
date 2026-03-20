@@ -12,6 +12,12 @@
 
   homebrew = {
     enable = true;
+    taps = [
+      "loft-sh/tap"
+    ];
+    brews = [
+      "loft-sh/tap/vcluster"
+    ];
   };
 
   home-manager.users.amrutphadke = import ./home.nix;
