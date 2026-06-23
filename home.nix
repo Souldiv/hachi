@@ -20,11 +20,17 @@
     homeDirectory = "/Users/amrutphadke";
     packages = with pkgs; [
       ghostty-bin
+      claude-code
       docker-client
       kubectl
       postgresql
       sqlcmd
       mirrord
+      cilium-cli
+      kind
+      cargo-audit
+      atmos
+      azure-cli
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
@@ -34,29 +40,40 @@
   programs = {
     ssh = {
       enable = true;
+      enableDefaultConfig = false;
       extraConfig = ''
         SetEnv TERM=xterm-256color
       '';
-      matchBlocks = {
+      settings = {
+        "*" = {
+          ForwardAgent = false;
+          AddKeysToAgent = "no";
+          Compression = false;
+          ServerAliveInterval = 0;
+          ServerAliveCountMax = 3;
+          HashKnownHosts = false;
+          UserKnownHostsFile = "~/.ssh/known_hosts";
+          ControlMaster = "no";
+          ControlPath = "~/.ssh/master-%r@%n:%p";
+          ControlPersist = "no";
+        };
         "bastion" = {
-          hostname = "52.140.46.232";
-          user = "azureuser";
-          identityFile = "~/files/eqx/conductor-backpack/ssh-keys/deploy_eqx_azure";
+          HostName = "52.140.46.232";
+          User = "azureuser";
+          IdentityFile = "~/files/eqx/conductor-backpack/ssh-keys/deploy_eqx_azure";
         };
         "conductor" = {
-          hostname = "10.0.1.4";
-          user = "conuser";
-          identityFile = "~/files/eqx/conductor-backpack/ssh-keys/deploy_eqx_azure";
-          proxyJump = "bastion";
+          HostName = "10.0.1.4";
+          User = "conuser";
+          IdentityFile = "~/files/eqx/conductor-backpack/ssh-keys/deploy_eqx_azure";
+          ProxyJump = "bastion";
         };
         "github.com" = {
-          hostname = "github.com";
-          user = "Souldiv";
-          identityFile = "~/.ssh/id_ed25519";
-          extraOptions = {
-            UseKeychain = "yes";
-            AddKeysToAgent = "yes";
-          };
+          HostName = "github.com";
+          User = "Souldiv";
+          IdentityFile = "~/.ssh/id_ed25519";
+          UseKeychain = "yes";
+          AddKeysToAgent = "yes";
         };
       };
     };
@@ -75,6 +92,7 @@
           hashicorp.terraform
           yzhang.markdown-all-in-one
           rust-lang.rust-analyzer
+          hashicorp.hcl
         ];
         userSettings = {
           "window.titleBarStyle" = "native";
@@ -85,6 +103,8 @@
       enable = true;
       envFile.text = ''
         $env.PATH = ($env.PATH | split row (char esep) | prepend "/opt/homebrew/bin" | prepend "/opt/homebrew/sbin" | prepend "/usr/local/bin" | prepend "/run/current-system/sw/bin" | prepend "/Users/amrutphadke/.nix-profile/bin" | prepend "/nix/var/nix/profiles/default/bin" | prepend "/Users/amrutphadke/.cargo/bin")
+        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.krew/bin")
+        $env.VCLUSTER_CONFIG_DIR = $"($env.HOME)/.vcluster"
       '';
       environmentVariables = {
         EDITOR = "vim";
@@ -92,6 +112,14 @@
       shellAliases = {
         ll = "ls -l";
         la = "ls -al";
+        gs = "git status";
+        ga = "git add";
+        gc = "git commit -m";
+        gd = "git diff";
+        gl = "git log --oneline";
+        gp = "git push";
+        gco = "git checkout";
+        gb = "git branch";
       };
     };
     kubecolor.enable = true;

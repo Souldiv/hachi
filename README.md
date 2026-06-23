@@ -38,14 +38,14 @@ Install [Nix](https://nixos.org/download/) with flakes enabled.
 ### Apply
 
 ```sh
-darwin-rebuild switch --flake .
+darwin-rebuild switch --flake .#hachi
 ```
 
 ### Update dependencies
 
 ```sh
 nix flake update
-darwin-rebuild switch --flake .
+darwin-rebuild switch --flake .#hachi
 ```
 
 ## Adapting for your own use

@@ -165,7 +165,7 @@ in
           (bind "Alt =" (resize "Increase"))
           (bind "Alt [" (noarg "PreviousSwapLayout"))
           (bind "Alt ]" (noarg "NextSwapLayout"))
-          (bind "Alt f" (noarg "ToggleFloatingPanes"))
+          (bind "Alt e" (noarg "ToggleFloatingPanes"))
           (bind "Ctrl g" (mode "locked"))
           (bind "Alt h" (focusOrTab "left"))
           (bind "Alt i" { MoveTab = { _args = [ "left" ]; }; })
