@@ -46,6 +46,7 @@
       azure-cli
       sops
       yq-go
+      uv
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
