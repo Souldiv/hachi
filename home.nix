@@ -1,6 +1,18 @@
 { config, pkgs, ... }: {
   imports = [ ./zellij.nix ];
   nixpkgs.config.allowUnfree = true;
+  # nixpkgs injects atmos's version into a stale variable path
+  # (cmd.Version), so the binary falls back to its built-in default
+  # "test". Inject into the correct path so `atmos version` is accurate.
+  nixpkgs.overlays = [
+    (final: prev: {
+      atmos = prev.atmos.overrideAttrs (old: {
+        ldflags = (old.ldflags or []) ++ [
+          "-X github.com/cloudposse/atmos/pkg/version.Version=v${old.version}"
+        ];
+      });
+    })
+  ];
   home = {
     file = {
       "Library/Application Support/com.mitchellh.ghostty/config" = {
@@ -19,6 +31,7 @@
     };
     homeDirectory = "/Users/amrutphadke";
     packages = with pkgs; [
+      opentofu
       ghostty-bin
       claude-code
       docker-client
@@ -31,6 +44,8 @@
       cargo-audit
       atmos
       azure-cli
+      sops
+      yq-go
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
@@ -38,6 +53,11 @@
   };
 
   programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableNushellIntegration = true;
+    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;
