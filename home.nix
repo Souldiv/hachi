@@ -7,6 +7,7 @@
   nixpkgs.overlays = [
     (final: prev: {
       atmos = prev.atmos.overrideAttrs (old: {
+        vendorHash = "sha256-X8R0hRTDKvKmBWgV4ujVQrHIE935wG6sogQAzv2fdTg=";
         ldflags = (old.ldflags or []) ++ [
           "-X github.com/cloudposse/atmos/pkg/version.Version=v${old.version}"
         ];
@@ -14,22 +15,39 @@
     })
   ];
   home = {
+    homeDirectory = "/Users/amrutphadke";
     file = {
       "Library/Application Support/com.mitchellh.ghostty/config" = {
         force = true;
         text = ''
-          theme = Monokai Soda
-          maximize = true
-          font-size = 22
-          command = /run/current-system/sw/bin/nu --login --commands "zellij"
-          font-family = JetBrains Mono Nerd Font
-          macos-option-as-alt = left
-          keybind = alt+left=unbind
-          keybind = alt+right=unbind
+        theme = Monokai Soda
+        maximize = true
+        font-size = 22
+        command = /opt/homebrew/bin/herdr
+        font-family = JetBrains Mono Nerd Font
+        macos-option-as-alt = left
+        keybind = alt+left=unbind
+        keybind = alt+right=unbind
+        '';
+      };
+      ".config/herdr/config.toml" = {
+        force = true;
+        text = ''
+        [terminal]
+        default_shell = "/run/current-system/sw/bin/nu"
+        shell_mode = "login"
+
+        [keys]
+        prefix = "ctrl+p"
+        new_tab = "prefix+t"
+        split_vertical = "prefix+r"
+        split_horizontal = "prefix+d"
+        resize_mode = "prefix+h"
+        focus_pane_left = "alt+left"
+        focus_pane_right = "alt+right"
         '';
       };
     };
-    homeDirectory = "/Users/amrutphadke";
     packages = with pkgs; [
       opentofu
       ghostty-bin
@@ -124,7 +142,7 @@
       enable = true;
       envFile.text = ''
         $env.PATH = ($env.PATH | split row (char esep) | prepend "/opt/homebrew/bin" | prepend "/opt/homebrew/sbin" | prepend "/usr/local/bin" | prepend "/run/current-system/sw/bin" | prepend "/Users/amrutphadke/.nix-profile/bin" | prepend "/nix/var/nix/profiles/default/bin" | prepend "/Users/amrutphadke/.cargo/bin")
-        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.krew/bin")
+        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.krew/bin" | prepend $"($env.HOME)/.local/bin")
         $env.VCLUSTER_CONFIG_DIR = $"($env.HOME)/.vcluster"
       '';
       environmentVariables = {
@@ -141,6 +159,8 @@
         gp = "git push";
         gco = "git checkout";
         gb = "git branch";
+        cfm = "cd ~/files/firstmate";
+        gonix = "cd ~/files/nix/macos-setup";
       };
     };
     kubecolor.enable = true;
