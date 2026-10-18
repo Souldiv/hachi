@@ -6,11 +6,14 @@
   # "test". Inject into the correct path so `atmos version` is accurate.
   nixpkgs.overlays = [
     (final: prev: {
-      atmos = prev.atmos.overrideAttrs (old: {
-        vendorHash = "sha256-X8R0hRTDKvKmBWgV4ujVQrHIE935wG6sogQAzv2fdTg=";
-        ldflags = (old.ldflags or []) ++ [
-          "-X github.com/cloudposse/atmos/pkg/version.Version=v${old.version}"
-        ];
+      atmos = prev.atmos.overrideAttrs (_: {
+        # nixpkgs builds atmos in -mod=vendor mode, but `go mod vendor`
+        # prunes github.com/1password/onepassword-sdk-go from the vendor
+        # tree, breaking the build. Use the Go module proxy instead so
+        # every go.mod dependency is available. (nixpkgs already injects
+        # the correct version via ldflags, so no override needed there.)
+        proxyVendor = true;
+        vendorHash = "sha256-LuWGOiLPLwPuRNmg6rXRnk0O37i8glgq+xf28wKSoVo=";
       });
     })
   ];
@@ -22,7 +25,7 @@
         text = ''
         theme = Monokai Soda
         maximize = true
-        font-size = 22
+        font-size = 18
         command = /opt/homebrew/bin/herdr
         font-family = JetBrains Mono Nerd Font
         macos-option-as-alt = left
@@ -65,6 +68,7 @@
       sops
       yq-go
       uv
+      act
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
@@ -132,6 +136,7 @@
           yzhang.markdown-all-in-one
           rust-lang.rust-analyzer
           hashicorp.hcl
+          waderyan.gitblame
         ];
         userSettings = {
           "window.titleBarStyle" = "native";
@@ -162,6 +167,13 @@
         cfm = "cd ~/files/firstmate";
         gonix = "cd ~/files/nix/macos-setup";
       };
+      extraConfig = ''
+        # Multi-statement shortcuts must be `def`s: nushell aliases wrap a
+        # single command, and a `;` inside one leaks out as a top-level statement.
+        def --env cqx [folder: string] {
+          cd ($nu.home-dir | path join files eqx $folder)
+        }
+      '';
     };
     kubecolor.enable = true;
     k9s = {
