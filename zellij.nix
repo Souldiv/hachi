@@ -2,20 +2,62 @@
 let
   # Helpers for concise keybind definitions
   bind = keys: children: {
-    bind = { _args = [ keys ]; } // children;
+    bind = {
+      _args = [ keys ];
+    }
+    // children;
   };
-  mode = m: { SwitchToMode = { _args = [ m ]; }; };
-  focus = dir: { MoveFocus = { _args = [ dir ]; }; };
-  focusOrTab = dir: { MoveFocusOrTab = { _args = [ dir ]; }; };
-  resize = args: { Resize = { _args = [ args ]; }; };
-  moveP = dir: { MovePane = { _args = [ dir ]; }; };
-  newPane = dir: { NewPane = { _args = [ dir ]; }; };
-  goToTab = n: { GoToTab = { _args = [ n ]; }; };
-  search = dir: { Search = { _args = [ dir ]; }; };
-  searchToggle = opt: { SearchToggleOption = { _args = [ opt ]; }; };
-  noarg = name: { ${name} = {}; };
+  mode = m: {
+    SwitchToMode = {
+      _args = [ m ];
+    };
+  };
+  focus = dir: {
+    MoveFocus = {
+      _args = [ dir ];
+    };
+  };
+  focusOrTab = dir: {
+    MoveFocusOrTab = {
+      _args = [ dir ];
+    };
+  };
+  resize = args: {
+    Resize = {
+      _args = [ args ];
+    };
+  };
+  moveP = dir: {
+    MovePane = {
+      _args = [ dir ];
+    };
+  };
+  newPane = dir: {
+    NewPane = {
+      _args = [ dir ];
+    };
+  };
+  goToTab = n: {
+    GoToTab = {
+      _args = [ n ];
+    };
+  };
+  search = dir: {
+    Search = {
+      _args = [ dir ];
+    };
+  };
+  searchToggle = opt: {
+    SearchToggleOption = {
+      _args = [ opt ];
+    };
+  };
+  noarg = name: { ${name} = { }; };
   plugin = name: props: {
-    LaunchOrFocusPlugin = { _args = [ name ]; } // props;
+    LaunchOrFocusPlugin = {
+      _args = [ name ];
+    }
+    // props;
   };
 in
 {
@@ -37,7 +79,14 @@ in
           (bind "down" (focus "down"))
           (bind "up" (focus "up"))
           (bind "right" (focus "right"))
-          (bind "c" ((mode "renamepane") // { PaneNameInput = { _args = [ 0 ]; }; }))
+          (bind "c" (
+            (mode "renamepane")
+            // {
+              PaneNameInput = {
+                _args = [ 0 ];
+              };
+            }
+          ))
           (bind "d" ((newPane "down") // (mode "normal")))
           (bind "e" ((noarg "TogglePaneEmbedOrFloating") // (mode "normal")))
           (bind "f" ((noarg "ToggleFocusFullscreen") // (mode "normal")))
@@ -77,7 +126,14 @@ in
           (bind "k" (noarg "GoToPreviousTab"))
           (bind "l" (noarg "GoToNextTab"))
           (bind "n" ((noarg "NewTab") // (mode "normal")))
-          (bind "r" ((mode "renametab") // { TabNameInput = { _args = [ 0 ]; }; }))
+          (bind "r" (
+            (mode "renametab")
+            // {
+              TabNameInput = {
+                _args = [ 0 ];
+              };
+            }
+          ))
           (bind "s" ((noarg "ToggleActiveSyncTab") // (mode "normal")))
           (bind "Ctrl t" (mode "normal"))
           (bind "x" ((noarg "CloseTab") // (mode "normal")))
@@ -120,7 +176,14 @@ in
 
         scroll._children = [
           (bind "e" ((noarg "EditScrollback") // (mode "normal")))
-          (bind "s" ((mode "entersearch") // { SearchInput = { _args = [ 0 ]; }; }))
+          (bind "s" (
+            (mode "entersearch")
+            // {
+              SearchInput = {
+                _args = [ 0 ];
+              };
+            }
+          ))
         ];
 
         search._children = [
@@ -132,27 +195,42 @@ in
         ];
 
         session._children = [
-          (bind "a" ((plugin "zellij:about" {
-            floating._args = [ true ];
-            move_to_focused_tab._args = [ true ];
-          }) // (mode "normal")))
-          (bind "c" ((plugin "configuration" {
-            floating._args = [ true ];
-            move_to_focused_tab._args = [ true ];
-          }) // (mode "normal")))
+          (bind "a" (
+            (plugin "zellij:about" {
+              floating._args = [ true ];
+              move_to_focused_tab._args = [ true ];
+            })
+            // (mode "normal")
+          ))
+          (bind "c" (
+            (plugin "configuration" {
+              floating._args = [ true ];
+              move_to_focused_tab._args = [ true ];
+            })
+            // (mode "normal")
+          ))
           (bind "Ctrl o" (mode "normal"))
-          (bind "p" ((plugin "plugin-manager" {
-            floating._args = [ true ];
-            move_to_focused_tab._args = [ true ];
-          }) // (mode "normal")))
-          (bind "s" ((plugin "zellij:share" {
-            floating._args = [ true ];
-            move_to_focused_tab._args = [ true ];
-          }) // (mode "normal")))
-          (bind "w" ((plugin "session-manager" {
-            floating._args = [ true ];
-            move_to_focused_tab._args = [ true ];
-          }) // (mode "normal")))
+          (bind "p" (
+            (plugin "plugin-manager" {
+              floating._args = [ true ];
+              move_to_focused_tab._args = [ true ];
+            })
+            // (mode "normal")
+          ))
+          (bind "s" (
+            (plugin "zellij:share" {
+              floating._args = [ true ];
+              move_to_focused_tab._args = [ true ];
+            })
+            // (mode "normal")
+          ))
+          (bind "w" (
+            (plugin "session-manager" {
+              floating._args = [ true ];
+              move_to_focused_tab._args = [ true ];
+            })
+            // (mode "normal")
+          ))
         ];
 
         "shared_except \"locked\""._children = [
@@ -168,12 +246,20 @@ in
           (bind "Alt e" (noarg "ToggleFloatingPanes"))
           (bind "Ctrl g" (mode "locked"))
           (bind "Alt h" (focusOrTab "left"))
-          (bind "Alt i" { MoveTab = { _args = [ "left" ]; }; })
+          (bind "Alt i" {
+            MoveTab = {
+              _args = [ "left" ];
+            };
+          })
           (bind "Alt j" (focus "down"))
           (bind "Alt k" (focus "up"))
           (bind "Alt l" (focusOrTab "right"))
           (bind "Alt n" (noarg "NewPane"))
-          (bind "Alt o" { MoveTab = { _args = [ "right" ]; }; })
+          (bind "Alt o" {
+            MoveTab = {
+              _args = [ "right" ];
+            };
+          })
           (bind "Alt p" (noarg "TogglePaneInGroup"))
           (bind "Alt Shift p" (noarg "ToggleGroupMarking"))
           (bind "Ctrl q" (noarg "Quit"))
@@ -270,7 +356,14 @@ in
           (bind "%" ((newPane "right") // (mode "normal")))
           (bind "," (mode "renametab"))
           (bind "[" (mode "scroll"))
-          (bind "Ctrl b" ({ Write = { _args = [ 2 ]; }; } // (mode "normal")))
+          (bind "Ctrl b" (
+            {
+              Write = {
+                _args = [ 2 ];
+              };
+            }
+            // (mode "normal")
+          ))
           (bind "c" ((noarg "NewTab") // (mode "normal")))
           (bind "h" ((focus "left") // (mode "normal")))
           (bind "j" ((focus "down") // (mode "normal")))

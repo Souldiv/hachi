@@ -23,31 +23,31 @@
       "Library/Application Support/com.mitchellh.ghostty/config" = {
         force = true;
         text = ''
-        theme = Monokai Soda
-        maximize = true
-        font-size = 18
-        command = /opt/homebrew/bin/herdr
-        font-family = JetBrains Mono Nerd Font
-        macos-option-as-alt = left
-        keybind = alt+left=unbind
-        keybind = alt+right=unbind
+          theme = Monokai Soda
+          maximize = true
+          font-size = 18
+          command = /opt/homebrew/bin/herdr
+          font-family = JetBrains Mono Nerd Font
+          macos-option-as-alt = left
+          keybind = alt+left=unbind
+          keybind = alt+right=unbind
         '';
       };
       ".config/herdr/config.toml" = {
         force = true;
         text = ''
-        [terminal]
-        default_shell = "/run/current-system/sw/bin/nu"
-        shell_mode = "login"
+          [terminal]
+          default_shell = "/run/current-system/sw/bin/nu"
+          shell_mode = "login"
 
-        [keys]
-        prefix = "ctrl+p"
-        new_tab = "prefix+t"
-        split_vertical = "prefix+r"
-        split_horizontal = "prefix+d"
-        resize_mode = "prefix+h"
-        focus_pane_left = "alt+left"
-        focus_pane_right = "alt+right"
+          [keys]
+          prefix = "ctrl+p"
+          new_tab = "prefix+t"
+          split_vertical = "prefix+r"
+          split_horizontal = "prefix+d"
+          resize_mode = "prefix+h"
+          focus_pane_left = "alt+left"
+          focus_pane_right = "alt+right"
         '';
       };
     };
