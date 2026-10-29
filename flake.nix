@@ -34,6 +34,7 @@
         in
         pkgs.mkShell {
           packages = [
+            pkgs.git
             pkgs.nixfmt
             pkgs.nil
           ];
