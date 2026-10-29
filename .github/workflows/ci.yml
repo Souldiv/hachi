@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-darwin:
+    name: Build hachi (macOS arm64)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
+      - name: nix flake check
+        run: nix flake check
+      - name: Build darwinConfigurations.hachi.system
+        run: nix build .#darwinConfigurations.hachi.system
+      - name: Enter devShell
+        run: nix develop --command true
+
+  lint:
+    name: Format and lint (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+      - uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
+      - name: nixfmt --check
+        run: git ls-files '*.nix' | xargs nix shell --inputs-from . nixpkgs#nixfmt --command nixfmt --check
+      - name: statix check
+        run: nix shell --inputs-from . nixpkgs#statix --command statix check .
+      - name: deadnix
+        run: nix shell --inputs-from . nixpkgs#deadnix --command deadnix --fail --no-lambda-arg --no-lambda-pattern-names .
