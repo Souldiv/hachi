@@ -25,7 +25,7 @@ jobs:
       - name: Build darwinConfigurations.hachi.system
         run: nix build .#darwinConfigurations.hachi.system
       - name: Enter devShell
-        run: nix develop --command true
+        run: nix develop --command sh -c 'command -v git | grep -q ^/nix/store/ && git --version'
 
   lint:
     name: Format and lint (Linux)
