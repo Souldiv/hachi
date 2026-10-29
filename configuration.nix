@@ -57,14 +57,12 @@
       "chipmk/tap/docker-mac-net-connect"
       "fujiwara/tap/tfstate-lookup"
       "hashicorp/tap/packer"
-      "hashicorp/tap/terraform"
       "messense/macos-cross-toolchains/x86_64-unknown-linux-gnu"
       "microsoft/mssql-release/msodbcsql18"
       "siderolabs/tap/talosctl"
       "tilt-dev/tap/ctlptl"
     ];
     casks = [
-      "1password-cli"
       "session-manager-plugin"
     ];
   };

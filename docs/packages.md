@@ -75,13 +75,13 @@ until they are removed. Removal is a separate task.
 | render | render-cli 2.24.0 | 2.31.0 | |
 | talosctl | 1.13.9 | siderolabs/tap 1.14.2 | |
 | telnet | none standalone | 308 | nixpkgs ships telnet only inside inetutils, whose `ping` and `hostname` would shadow the macOS ones |
-| terraform | 1.16.0 | hashicorp/tap 1.17.0 | |
-| tfenv | 3.2.2 | 3.2.2 | the nixpkgs build ships a `terraform` shim that would shadow the Homebrew terraform |
+| terraform | 1.16.0 | hashicorp/tap 1.17.0 | not declared: tfenv owns `/opt/homebrew/bin/terraform`, so linking the formula fails `brew bundle` |
+| tfenv | 3.2.2 | 3.2.2 | provides `terraform`; the nixpkgs build ships its own `terraform` shim |
 | tfstate-lookup | none | fujiwara/tap 1.12.1 | |
 | tilt | 0.37.6 | 0.37.8 | |
 | vcluster | 0.35.1 | loft-sh/tap 0.37.4 | |
 | x86_64-unknown-linux-gnu | none | messense/macos-cross-toolchains 15.2.0 | |
-| 1password-cli (cask) | 2.39.0 | 2.41.1 | |
+| 1password-cli (cask) | 2.39.0 | 2.41.1 | removed on the captain's call; the separate removal step uninstalls it |
 | session-manager-plugin (cask) | 1.2.792.0 | 1.2.896.0 | |
 
 `homebrew.onActivation.cleanup` stays at its default. Activation installs what
