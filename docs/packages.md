@@ -20,13 +20,10 @@ Reasons appear only where the choice was not the mechanical result of the rule.
 | cargo-binstall | 1.22.0 | cargo 1.15.7 | |
 | cargo-dist | 0.32.0 | cargo 0.22.1 | |
 | dioxus-cli | 0.7.10 | cargo 0.7.9 | |
-| gh | 2.99.0 | 2.103.3 | kept in nix on the 2026-10-29 call so the fleet's `gh-axi` runs on a nix-provided `gh`; Homebrew is newer, revisit at the next `nix flake update` |
 | git-cliff | 2.14.1 | cargo 2.5.0 | |
 | git-filter-repo | 2.47.0 | uv tool 2.47.0 | |
 | hubble | 1.19.4 | hand-placed 1.16.0 | |
-| kubernetes-helm | 4.2.4 | helm 4.3.1, helm@3 3.20.1 | Helm 3 is retired; `helm` must resolve to Helm 4 at once, which only a nix declaration does while `helm@3` is still linked |
 | minio-client | 2025-08-13 | minio/stable/mc 2025-08-13 | |
-| nodejs | 24.19.0 | node 26.12.1 | kept in nix on the 2026-10-29 call so the five axi tools run on a nix-provided `node`; Homebrew is newer, revisit at the next `nix flake update` |
 | openssl | 3.6.3 | openssl@3 3.5.9 | provides the `openssl` command; Homebrew's copy stays as a dependency of 28 formulae |
 | operator-sdk | 1.42.3 | 1.42.3 | |
 | p7zip | 17.06 | 17.06 | |
@@ -52,9 +49,11 @@ until they are removed. Removal is a separate task.
 | ctlptl | 0.9.5 | tilt-dev/tap 0.9.6 | |
 | docker-compose | 5.4.0 | 5.6.1 | |
 | docker-mac-net-connect | none | chipmk/tap 0.1.7 | |
+| gh | 2.99.0 | 2.103.3 | |
 | git-lfs | 3.7.1 | 3.8.1 | |
 | gnu-tar | 1.35 | 1.35 | nixpkgs installs it as `tar`, which would shadow macOS tar for every script; Homebrew installs `gtar` |
 | gnupg | 2.4.9 | 2.5.24 | |
+| helm | kubernetes-helm 4.2.4 | 4.3.1 | `helm` keeps resolving to helm@3 until the separate removal step uninstalls helm@3 and links Homebrew's helm |
 | helmfile | 1.7.4 | 1.8.2 | |
 | herdr | 0.8.2 | 0.9.5 | |
 | imagemagick | 7.1.2-29 | 7.1.2-34 | |
@@ -64,6 +63,7 @@ until they are removed. Removal is a separate task.
 | kubectl-radar | none | 1.18.2 | |
 | msodbcsql18 | none | microsoft/mssql-release 18.7.1.1 | |
 | mysql | mysql84 8.4.11 | 26.10.0 (9.5.0 installed) | captain's call: stays on Homebrew with its data in `/opt/homebrew/var/mysql` |
+| node | nodejs 24.19.0 | 26.12.1 | |
 | packer | 1.15.4 | hashicorp/tap 1.16.2 | |
 | pkgconf | 2.5.1 | 3.0.10 | `pkg-config` is now an alias of this formula |
 | poetry | 2.4.1 | 2.5.1 | |
@@ -123,8 +123,7 @@ The owner decides their removal separately; nothing here is used.
 - Zero history uses, nothing depends on them: antigen, asciinema, autoconf,
   automake, coreutils, dcmtk, gcc, gifsicle, jaq, nmap, putty, samba.
 - openssl@1.1: end of life, removed from nixpkgs.
-- helm@3: retired in favour of Helm 4. The `helm` formula stays only as a
-  dependency of helmfile and vcluster.
+- helm@3: retired in favour of Helm 4, the `helm` formula declared above.
 - teleport, tsh, tctl, tbot in `/usr/local/bin`: retired. This repository
   never referenced Teleport, RVM or SDKMAN, so there was nothing to remove.
 - libtool and zlib: build-only, zero uses; they stay as dependencies of

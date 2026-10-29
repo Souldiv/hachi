@@ -69,9 +69,6 @@
       yq-go
       uv
       act
-      gh
-      nodejs
-      kubernetes-helm
       vals
       hubble
       minio-client
