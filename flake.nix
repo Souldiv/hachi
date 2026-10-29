@@ -22,6 +22,6 @@
 
     devShells.aarch64-darwin.default =
       let pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-      in pkgs.mkShell { packages = [ pkgs.nixfmt-rfc-style pkgs.nil ]; };
+      in pkgs.mkShell { packages = [ pkgs.nixfmt pkgs.nil ]; };
   };
 }
