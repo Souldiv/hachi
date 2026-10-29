@@ -178,7 +178,7 @@
         $env.PATH = ($env.PATH | split row (char esep) | prepend "/opt/homebrew/bin" | prepend "/opt/homebrew/sbin" | prepend "/usr/local/bin" | prepend "/run/current-system/sw/bin" | prepend "/Users/amrutphadke/.nix-profile/bin" | prepend "/nix/var/nix/profiles/default/bin" | prepend "/Users/amrutphadke/.cargo/bin")
         $env.PATH = ($env.PATH | prepend $"($env.HOME)/.krew/bin" | prepend $"($env.HOME)/.local/bin")
         $env.VCLUSTER_CONFIG_DIR = $"($env.HOME)/.vcluster"
-        $env.HELM_PLUGINS = $"${pkgs.kubernetes-helmPlugins.helm-secrets}:($env.HOME)/Library/helm/plugins"
+        $env.HELM_PLUGINS = "${pkgs.kubernetes-helmPlugins.helm-diff}:${pkgs.kubernetes-helmPlugins.helm-git}:${pkgs.kubernetes-helmPlugins.helm-s3}:${pkgs.kubernetes-helmPlugins.helm-secrets}"
       '';
       environmentVariables = {
         EDITOR = "vim";
