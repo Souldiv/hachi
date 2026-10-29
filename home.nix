@@ -80,7 +80,6 @@
       act
       vals
       hubble
-      minio-client
       operator-sdk
       actionlint
       openssl
