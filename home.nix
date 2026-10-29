@@ -98,7 +98,7 @@
       git-cliff
       release-plz
     ];
-    stateVersion = "25.05";
+    stateVersion = "26.11";
     shell.enableNushellIntegration = true;
     username = "amrutphadke";
   };
