@@ -76,6 +76,11 @@
     restartAfterFreeze = true;
   };
 
+  # Cloudflare Gateway inspects TLS on this machine. Its CA is in the System
+  # keychain, which nix tooling never reads, so the certificate is vendored here
+  # and concatenated into the bundle NIX_SSL_CERT_FILE points at.
+  security.pki.certificateFiles = [ ./certs/cloudflare-gateway-ca.pem ];
+
   system = {
     primaryUser = "amrutphadke";
     startup.chime = false;
