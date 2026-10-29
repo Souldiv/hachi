@@ -2,10 +2,10 @@
   environment = {
     shells = [ pkgs.nushell ];
     variables = {
-        EDITOR = "vim";
+      EDITOR = "vim";
     };
   };
-  
+
   fonts.packages = [
     pkgs.nerd-fonts.jetbrains-mono
   ];
