@@ -1,20 +1,29 @@
 { config, pkgs, ... }: {
   imports = [ ./zellij.nix ];
   nixpkgs.config.allowUnfree = true;
-  # nixpkgs injects atmos's version into a stale variable path
-  # (cmd.Version), so the binary falls back to its built-in default
-  # "test". Inject into the correct path so `atmos version` is accurate.
   nixpkgs.overlays = [
+    # fabric 3.2.3 pins invoke<3.0 and nixpkgs now ships invoke 3.0.3, so nixpkgs
+    # marks fabric broken and azure-cli, which depends on it, stops evaluating.
+    # Upstream's fix is merged but unreleased (fabric/fabric#2376); drop this
+    # override once a fabric release carries it.
     (final: prev: {
-      atmos = prev.atmos.overrideAttrs (_: {
-        # nixpkgs builds atmos in -mod=vendor mode, but `go mod vendor`
-        # prunes github.com/1password/onepassword-sdk-go from the vendor
-        # tree, breaking the build. Use the Go module proxy instead so
-        # every go.mod dependency is available. (nixpkgs already injects
-        # the correct version via ldflags, so no override needed there.)
-        proxyVendor = true;
-        vendorHash = "sha256-LuWGOiLPLwPuRNmg6rXRnk0O37i8glgq+xf28wKSoVo=";
-      });
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (pyFinal: pyPrev: {
+          fabric = pyPrev.fabric.overridePythonAttrs (old: {
+            patches = (old.patches or [ ]) ++ [
+              (prev.fetchpatch {
+                url = "https://github.com/fabric/fabric/commit/7fa309db9dd5dac69079c1fb83b6f579555f7d53.patch";
+                includes = [ "fabric/*" ];
+                hash = "sha256-HxdV1XbsytBYOHV8WqcpKMpqGRkbXD/UlmAFSrmsFTg=";
+              })
+            ];
+            pythonRelaxDeps = [ "invoke" ];
+            meta = old.meta // {
+              broken = false;
+            };
+          });
+        })
+      ];
     })
   ];
   home = {
@@ -71,7 +80,6 @@
       act
       vals
       hubble
-      minio-client
       operator-sdk
       actionlint
       openssl

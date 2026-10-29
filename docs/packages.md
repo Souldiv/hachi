@@ -23,7 +23,6 @@ Reasons appear only where the choice was not the mechanical result of the rule.
 | git-cliff | 2.14.1 | cargo 2.5.0 | |
 | git-filter-repo | 2.47.0 | uv tool 2.47.0 | |
 | hubble | 1.19.4 | hand-placed 1.16.0 | |
-| minio-client | 2025-08-13 | minio/stable/mc 2025-08-13 | |
 | openssl | 3.6.3 | openssl@3 3.5.9 | provides the `openssl` command; Homebrew's copy stays as a dependency of 28 formulae |
 | operator-sdk | 1.42.3 | 1.42.3 | |
 | p7zip | 17.06 | 17.06 | |
