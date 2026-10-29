@@ -27,6 +27,7 @@ flake.nix          # Flake definition — single darwin system "hachi"
 configuration.nix  # System-level nix-darwin config
 home.nix           # Home-manager — shell, editor, terminal, prompt
 zellij.nix         # Zellij keybindings, plugins, and theme
+docs/packages.md   # Which source provides each tool, and why
 ```
 
 ## Usage

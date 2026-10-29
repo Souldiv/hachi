@@ -69,6 +69,26 @@
       yq-go
       uv
       act
+      vals
+      hubble
+      minio-client
+      operator-sdk
+      actionlint
+      openssl
+      sshpass
+      remake
+      tree
+      wget
+      p7zip
+      git-filter-repo
+      asciinema-agg
+      bacon
+      bottom
+      cargo-binstall
+      cargo-dist
+      dioxus-cli
+      git-cliff
+      release-plz
     ];
     stateVersion = "25.05";
     shell.enableNushellIntegration = true;
