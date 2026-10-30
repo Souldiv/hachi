@@ -28,6 +28,8 @@
   ];
   home = {
     homeDirectory = "/Users/amrutphadke";
+    # nushell (loadSessionVariables) reads these; see configuration.nix for why.
+    sessionVariables.NODE_EXTRA_CA_CERTS = "/etc/ssl/certs/ca-certificates.crt";
     file = {
       "Library/Application Support/com.mitchellh.ghostty/config" = {
         force = true;

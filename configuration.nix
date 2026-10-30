@@ -81,6 +81,13 @@
   # and concatenated into the bundle NIX_SSL_CERT_FILE points at.
   security.pki.certificateFiles = [ ./certs/cloudflare-gateway-ca.pem ];
 
+  # Node-based tools (Claude Code, the VS Code extension, npm) ignore
+  # NIX_SSL_CERT_FILE and only trust their bundled CAs plus NODE_EXTRA_CA_CERTS.
+  # Point that at the same generated bundle, for both login shells and GUI apps
+  # launched by launchd (VS Code started from the Dock never sees shell env).
+  environment.variables.NODE_EXTRA_CA_CERTS = "/etc/ssl/certs/ca-certificates.crt";
+  launchd.user.envVariables.NODE_EXTRA_CA_CERTS = "/etc/ssl/certs/ca-certificates.crt";
+
   system = {
     primaryUser = "amrutphadke";
     startup.chime = false;
