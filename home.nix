@@ -37,7 +37,7 @@
           theme = Monokai Soda
           maximize = true
           font-size = 18
-          command = herdr
+          command = /opt/homebrew/bin/herdr
           font-family = JetBrains Mono Nerd Font
           macos-option-as-alt = left
           keybind = alt+left=unbind
