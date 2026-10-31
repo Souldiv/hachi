@@ -71,6 +71,12 @@
           type = "plugin_action"
           command = "usagebar.open-limits"
           description = "agent usage and limits"
+
+          [[keys.command]]
+          key = "prefix+y"
+          type = "plugin_action"
+          command = "herdr-firstmate-flow.open-captain-deck"
+          description = "captain's deck"
         '';
       };
     };
