@@ -59,6 +59,18 @@
           resize_mode = "prefix+h"
           focus_pane_left = "alt+left"
           focus_pane_right = "alt+right"
+
+          [[keys.command]]
+          key = "prefix+f"
+          type = "plugin_action"
+          command = "herdr-navigator.open"
+          description = "jump to anything"
+
+          [[keys.command]]
+          key = "prefix+u"
+          type = "plugin_action"
+          command = "usagebar.open-limits"
+          description = "agent usage and limits"
         '';
       };
     };
