@@ -19,6 +19,7 @@ Declarative macOS system configuration using [nix-darwin](https://github.com/LnL
 **Dev tools**
 - VS Code with extensions (Claude Code, Nix IDE, Terraform, Markdown)
 - kubectl, kubecolor, k9s
+- Google Cloud CLI (`gcloud`)
 
 ## Structure
 
