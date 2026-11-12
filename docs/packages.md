@@ -81,6 +81,7 @@ until they are removed. Removal is a separate task.
 | vcluster | 0.35.1 | loft-sh/tap 0.37.4 | |
 | x86_64-unknown-linux-gnu | none | messense/macos-cross-toolchains 15.2.0 | |
 | 1password-cli (cask) | 2.39.0 | 2.41.1 | removed on the captain's call; the separate removal step uninstalls it |
+| gcloud-cli (cask) | google-cloud-sdk 583.0.0 | 593.0.0 | provides `gcloud`; formerly the google-cloud-sdk cask |
 | session-manager-plugin (cask) | 1.2.792.0 | 1.2.896.0 | |
 
 `homebrew.onActivation.cleanup` stays at its default. Activation installs what

@@ -63,6 +63,7 @@
       "tilt-dev/tap/ctlptl"
     ];
     casks = [
+      "gcloud-cli"
       "session-manager-plugin"
     ];
   };
